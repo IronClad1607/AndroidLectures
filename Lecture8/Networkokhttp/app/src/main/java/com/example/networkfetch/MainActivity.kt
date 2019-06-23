@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import org.json.JSONArray
@@ -50,19 +51,22 @@ class MainActivity : AppCompatActivity() {
 
 
     fun parseJson(data:String):List<User>{
-        val jsonArray = JSONArray(data)
-        val list = arrayListOf<User>()
+//        val jsonArray = JSONArray(data)
+//        val list = arrayListOf<User>()
+//
+//        for(i in 0 until jsonArray.length()){
+//            val userJson = jsonArray.getJSONObject(i)
+//            val user = User(
+//                userJson.getInt("id"),
+//                userJson.getString("name"),
+//                userJson.getString("username"),
+//                userJson.getString("email")
+//            )
+//            list.add(user)
+//        }
 
-        for(i in 0 until jsonArray.length()){
-            val userJson = jsonArray.getJSONObject(i)
-            val user = User(
-                userJson.getInt("id"),
-                userJson.getString("name"),
-                userJson.getString("username"),
-                userJson.getString("email")
-            )
-            list.add(user)
-        }
-        return list
+        val gson = Gson()
+        val users = gson.fromJson(data,Array<User>::class.java)
+        return users.toList()
     }
 }
