@@ -2,55 +2,86 @@ package com.example.networkfetch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 import okhttp3.*
-import org.json.JSONArray
-import java.io.IOException
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope {
+
+    val supervisor = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + supervisor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            getUsers("https://jsonplaceholder.typicode.com/users")
+            //            getUsers("https://jsonplaceholder.typicode.com/users")
+
+            launch {
+                val deferredUsers = getUsersSmart("https://jsonplaceholder.typicode.com/users")
+
+                val users = deferredUsers.await()
+
+                rvUsers.layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+                rvUsers.adapter = UserAdapter(users)
+
+
+            }
         }
     }
 
 
-    fun getUsers(url:String){
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .build()
-        client.newCall(request).enqueue(object :Callback{
-            override fun onFailure(call: Call, e: IOException) {
+//    fun getUsers(url:String){
+//        val client = OkHttpClient()
+//        val request = Request.Builder()
+//            .url(url)
+//            .build()
+//        client.newCall(request).enqueue(object :Callback{
+//            override fun onFailure(call: Call, e: IOException) {
+//
+//            }
+//
+//            override fun onResponse(call: Call, response: Response) {
+//                val data = response.body()?.string()
+//                val token = parseJson(data!!)
+//                Log.i("PUI", "data $data")
+//
+//                runOnUiThread {
+//                    rvUsers.layoutManager =
+//                        LinearLayoutManager(this@MainActivity,RecyclerView.VERTICAL,false)
+//                    rvUsers.adapter = UserAdapter(token)
+//                }
+//
+//            }
+//
+//        })
+//    }
 
-            }
 
-            override fun onResponse(call: Call, response: Response) {
-                val data = response.body()?.string()
-                val token = parseJson(data!!)
-                Log.i("PUI", "data $data")
+    fun getUsersSmart(url: String): Deferred<List<User>> {
+        return async(Dispatchers.IO) {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(url)
+                .build()
 
-                runOnUiThread {
-                    rvUsers.layoutManager =
-                        LinearLayoutManager(this@MainActivity,RecyclerView.VERTICAL,false)
-                    rvUsers.adapter = UserAdapter(token)
-                }
+            val data = client.newCall(request).execute()
+            val jsonData = data.body()?.string() ?: ""
 
-            }
+            val users = parseJson(jsonData)
 
-        })
+            users
+        }
     }
 
 
-    fun parseJson(data:String):List<User>{
+    fun parseJson(data: String): List<User> {
 //        val jsonArray = JSONArray(data)
 //        val list = arrayListOf<User>()
 //
@@ -66,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         val gson = Gson()
-        val users = gson.fromJson(data,Array<User>::class.java)
+        val users = gson.fromJson(data, Array<User>::class.java)
         return users.toList()
     }
 }
