@@ -1,4 +1,4 @@
-package com.example.networkfetch
+package com.example.networkfetch.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

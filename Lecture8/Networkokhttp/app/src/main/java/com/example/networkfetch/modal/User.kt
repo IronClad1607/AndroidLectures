@@ -1,4 +1,4 @@
-package com.example.networkfetch
+package com.example.networkfetch.modal
 
 data class User(
     val id: Int,

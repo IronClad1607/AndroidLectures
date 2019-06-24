@@ -1,5 +1,6 @@
-package com.example.networkfetch
+package com.example.networkfetch.network
 
+import com.example.networkfetch.modal.User
 import retrofit2.Response
 import retrofit2.http.GET
 
