@@ -10,15 +10,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     override fun onNavigationItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.navigation_home -> {
-            textView1.setText(R.string.title_home)
+            supportFragmentManager.beginTransaction().replace(R.id.container,BlankFragment()).commit()
             true
         }
         R.id.navigation_dashboard -> {
-            textView1.setText(R.string.title_dashboard)
+            supportFragmentManager.beginTransaction().replace(R.id.container,BlankFragment2()).commit()
             true
         }
         R.id.navigation_notifications -> {
-            textView1.setText(R.string.title_notifications)
+            supportFragmentManager.beginTransaction().replace(R.id.container,BlankFragment()).commit()
             true
         }
 
