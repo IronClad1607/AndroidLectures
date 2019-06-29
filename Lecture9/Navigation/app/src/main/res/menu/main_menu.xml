@@ -5,32 +5,32 @@
     <item
         android:id="@+id/button1"
         android:icon="@android:drawable/btn_dropdown"
-        android:title="Button1"
+        android:title="Drop1"
         app:showAsAction="always" />
 
 
     <item
         android:id="@+id/button2"
         android:icon="@android:drawable/btn_dropdown"
-        android:title="Button1"
+        android:title="Drop2"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/button3"
         android:icon="@android:drawable/btn_dropdown"
-        android:title="Button1"
+        android:title="Copy"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/button4"
         android:icon="@android:drawable/btn_dropdown"
-        android:title="Button1"
+        android:title="Info"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/button5"
         android:icon="@android:drawable/btn_dropdown"
-        android:title="Button1"
+        android:title="Block"
         app:showAsAction="ifRoom" />
 
 </menu>

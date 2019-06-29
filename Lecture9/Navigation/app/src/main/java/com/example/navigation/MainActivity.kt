@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbaar)
         supportActionBar?.title = "Hello World"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         btnChangeActivity.setOnClickListener {
             startActivity(Intent(this@MainActivity, Main2Activity::class.java))
@@ -30,7 +31,28 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.button1 -> {
-            Toast.makeText(this, "Toolbar Button", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Drop 1", Toast.LENGTH_LONG).show()
+            true
+        }
+        R.id.button2 -> {
+            Toast.makeText(this, "Drop 2", Toast.LENGTH_LONG).show()
+            true
+        }
+        R.id.button3->{
+            Toast.makeText(this, "Copied", Toast.LENGTH_LONG).show()
+            true
+        }
+        R.id.button4->{
+            Toast.makeText(this, "Info Button", Toast.LENGTH_LONG).show()
+            true
+        }
+        R.id.button5->{
+            Toast.makeText(this, "Blocked", Toast.LENGTH_LONG).show()
+            true
+        }
+
+        android.R.id.home ->{
+            finish()
             true
         }
         else -> super.onOptionsItemSelected(item)
