@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Main2Activity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbaar"
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -18,11 +15,5 @@
         app:titleTextColor="@android:color/white">
 
     </androidx.appcompat.widget.Toolbar>
-    <Button
-        android:text="Click Me!"
-        android:textAllCaps="false"
-        android:id="@+id/btnChangeActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
