@@ -1,5 +1,6 @@
 package com.example.navigationdrawer
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -11,6 +12,9 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.Toast
+import org.jetbrains.anko.browse
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,13 +79,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_tools -> {
-
+                toast("Clicked on Tools Options!")
             }
             R.id.nav_share -> {
 
             }
             R.id.nav_send -> {
-
+               browse("http://www.google.com")
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
