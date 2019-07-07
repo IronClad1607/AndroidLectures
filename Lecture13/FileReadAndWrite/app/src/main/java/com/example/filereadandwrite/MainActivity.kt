@@ -13,15 +13,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+        val file = File(filesDir,"myfile.txt")
         Log.d("FILES","Files dir = ${filesDir.path}")
 
         btnSave.setOnClickListener {
-            val file = File(filesDir,"myfile.txt")
             Log.d("FILES","exists = ${file.exists()}")
+            file.appendText(etData.text.toString())
         }
 
         btnRestore.setOnClickListener {
 
+
+            val existingData = file.readText()
+            tvFileData.text = existingData
 
         }
     }
