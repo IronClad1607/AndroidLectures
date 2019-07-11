@@ -1,4 +1,4 @@
-package com.example.roomnotes
+package com.example.roomnotes.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
