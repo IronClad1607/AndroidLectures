@@ -12,5 +12,5 @@ data class Todo(
     val task: String,
 
     @ColumnInfo(name = "done")
-    val status: Boolean
+    var status: Boolean
 )

@@ -2,6 +2,7 @@ package com.example.roomnotes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.room.Room
 import com.example.roomnotes.R
 import com.example.roomnotes.database.AppDatabase
@@ -26,10 +27,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        list = db.todoDao().getAllTodo() as ArrayList<Todo>
 
         val todoAdapter = TODOAdapter(list)
+
+        todoAdapter.listItemClickListener = object : ListViewListener{
+            override fun checkboxClick(task: Todo, position: Int) {
+                task.status = !task.status
+
+            }
+
+            override fun btnDeleteClick(task: Todo, position: Int) {
+            }
+
+        }
         lvTODO.adapter = todoAdapter
+
+        db.todoDao().getAllTodo().observe(this, Observer {
+            list = it as ArrayList<Todo>
+            todoAdapter.updateTasks(list)
+        })
+
+
 
 
         btnADD.setOnClickListener {
@@ -41,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             )
 
             etTask.text.clear()
-            list = db.todoDao().getAllTodo() as ArrayList<Todo>
             todoAdapter.updateTasks(list)
         }
 

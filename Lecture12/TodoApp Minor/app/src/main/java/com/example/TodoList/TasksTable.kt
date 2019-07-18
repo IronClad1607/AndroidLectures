@@ -17,7 +17,7 @@ class TasksTable {
 
         val CMD_CREATE_TABLE = """
             CREATE TABLE $TABLE_NAME (
-            id INTEGER AUTO_INCREMENT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             task TEXT,
             done BOOLEAN
             );
